@@ -4,7 +4,7 @@ module KitchenNaming
   {
     string turnOnOff(in boolean onOff, in string appliance);
     string changeHeat();
-    string openCloseDoor();
+    string openCloseDoor(in boolean openClose, in string appliance);
     string timer();
     string temperature();
   };

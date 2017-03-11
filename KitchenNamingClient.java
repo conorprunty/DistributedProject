@@ -64,24 +64,50 @@ public class KitchenNamingClient
         
               //get user input
               System.out.println("Please enter your device");
-              Scanner keyboard = new Scanner(System.in);
-              String input = keyboard.next();
+              Scanner scan = new Scanner(System.in);
+              String userDevice = scan.next();
+                String result = "";
+        
+              if(userDevice.equalsIgnoreCase("microwave")){
+                   System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door");
+                  String userOption = scan.next();
+                  
+                  if(userOption.equalsIgnoreCase("o")){
+                      System.out.println("Do you want it on or off?");
+                      String onOff = scan.next();
+                      boolean onOffSwitch;
+                      if(onOff.equals("on")){
+                        onOffSwitch = true;
+                      }
+                      else if (onOff.equals("off")){
+                        onOffSwitch = false;
+                      }
+                      else{
+                          onOffSwitch = false;
+                      }
 
-              System.out.println("Do you want it on or off?");
-              String onOff = keyboard.next();
-              boolean testbool;
-              if(onOff.equals("on")){
-                testbool = true;
-              }
-              else if (onOff.equals("off")){
-                testbool = false;
-              }
-              else{
-                  testbool = false;
-              }
-
-            	String result = addRef.turnOnOff(testbool, input);
-            	System.out.println("Result of method: " + result);
+                     result = addRef.turnOnOff(onOffSwitch, userDevice);
+                  }
+                     if(userOption.equalsIgnoreCase("c")){
+                         System.out.println("Do you want to open or close the door?");
+                         String openClose = scan.next();
+                         boolean openCloseButton;
+                         if(openClose.equalsIgnoreCase("open")){
+                             openCloseButton = true;
+                         }
+                         else if (openClose.equalsIgnoreCase("close")){
+                         openCloseButton = false;   
+                        }
+                         else{
+                          openCloseButton = false;   
+                         }
+                     result = addRef.openCloseDoor(openCloseButton, userDevice);
+                     }
+                  System.out.println("Result of method: " + result);
+                }
+                                  
+              
+            	
 
             } catch (Exception e) {
                 System.out.println("ERROR : " + e) ;
