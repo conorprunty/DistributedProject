@@ -6,18 +6,18 @@ class KitchenServant extends _KitchenImplBase
   boolean coffeemakerOnOff;
   boolean ovenOnOff;
   String fridgeTemp;
-
+    String returnVal;
+    
     public String turnOnOff(boolean onOff, String appliance){
-      String returnVal = "";
       if(onOff == true && appliance.equals("microwave")){
-        microwaveOnOff = false;
-        returnVal = "off";
-      }
-      else if(onOff == false && appliance.equals("microwave")){
         microwaveOnOff = true;
         returnVal = "on";
       }
-      return "Microwave is now " + returnVal;
+      else if(onOff == false && appliance.equals("microwave")){
+        microwaveOnOff = false;
+        returnVal = "off";
+      }
+      return "The microwave is " + returnVal;
     }
 
     public String changeHeat(){

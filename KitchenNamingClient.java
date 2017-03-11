@@ -61,7 +61,7 @@ public class KitchenNamingClient
               org.omg.CORBA.Object objRefAdd = rootCtx.resolve(nc);
               Kitchen addRef = KitchenHelper.narrow(objRefAdd);
               //put result of method into string
-
+        
               //get user input
               System.out.println("Please enter your device");
               Scanner keyboard = new Scanner(System.in);
@@ -77,7 +77,7 @@ public class KitchenNamingClient
                 testbool = false;
               }
               else{
-                testbool = true;
+                  testbool = false;
               }
 
             	String result = addRef.turnOnOff(testbool, input);
