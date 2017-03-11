@@ -1,0 +1,11 @@
+module KitchenNaming
+{
+  interface Kitchen
+  { 
+    string turnOnOff();
+    string changeHeat();
+    string openCloseDoor();
+    string timer();
+    string temperature();
+  };
+};
