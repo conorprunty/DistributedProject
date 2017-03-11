@@ -1,8 +1,8 @@
 module KitchenNaming
 {
   interface Kitchen
-  { 
-    string turnOnOff();
+  {
+    string turnOnOff(in boolean onOff, in string appliance);
     string changeHeat();
     string openCloseDoor();
     string timer();
