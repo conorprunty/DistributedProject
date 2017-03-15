@@ -69,7 +69,7 @@ public class KitchenNamingClient
                 String result = "";
         
               if(userDevice.equalsIgnoreCase("microwave")){
-                   System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door");
+                   System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door\nType 'h' to change the heat");
                   String userOption = scan.next();
                   
                   if(userOption.equalsIgnoreCase("o")){
@@ -103,6 +103,22 @@ public class KitchenNamingClient
                          }
                      result = addRef.openCloseDoor(openCloseButton, userDevice);
                      }
+                  
+                  //heat change setting
+                  if(userOption.equalsIgnoreCase("h")){
+                         System.out.println("Please set the temperature required.");
+                         String heatAmount = scan.next();
+                        int userHeatAmount=0;
+                          try{
+                                userHeatAmount = Integer.parseInt(heatAmount);
+                            }catch (NumberFormatException ex) {
+                                System.out.println("You did not enter a number.");
+                            }
+                      result = addRef.changeHeat(userHeatAmount, userDevice);
+                     }
+                  
+
+                  //output to console
                   System.out.println("Result of method: " + result);
                 }
                                   

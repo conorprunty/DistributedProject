@@ -9,6 +9,8 @@ class KitchenServant extends _KitchenImplBase
     boolean doorOpenClose;
     String returnVal;
     String returnValTwo;
+    Double tempAmount;
+    
     
     public String turnOnOff(boolean onOff, String appliance){
       if(onOff == true && appliance.equals("microwave")){
@@ -22,8 +24,12 @@ class KitchenServant extends _KitchenImplBase
       return "The microwave is " + returnVal;
     }
 
-    public String changeHeat(){
-      return "";
+    public String changeHeat(double tempAmount, String appliance){
+        this.tempAmount = tempAmount;
+        if(appliance.equals("microwave")){
+            return "The microwave's temperature is set to "+tempAmount;
+        }
+        else return "Temperature not changed.";
     }
 
     public String openCloseDoor(boolean openClose, String appliance){

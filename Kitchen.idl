@@ -3,7 +3,7 @@ module KitchenNaming
   interface Kitchen
   {
     string turnOnOff(in boolean onOff, in string appliance);
-    string changeHeat();
+    string changeHeat(in double tempAmount, in string appliance);
     string openCloseDoor(in boolean openClose, in string appliance);
     string timer();
     string temperature();
