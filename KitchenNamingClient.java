@@ -61,17 +61,18 @@ public class KitchenNamingClient
               org.omg.CORBA.Object objRefAdd = rootCtx.resolve(nc);
               Kitchen addRef = KitchenHelper.narrow(objRefAdd);
               //put result of method into string
-        
+
               //get user input
-              System.out.println("Please enter your device");
+              System.out.println("Your connected devices are: microwave, fridge, coffeemaker, oven");
+              System.out.println("Please enter your device name");
               Scanner scan = new Scanner(System.in);
               String userDevice = scan.next();
                 String result = "";
-        
+
               if(userDevice.equalsIgnoreCase("microwave")){
-                   System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door\nType 'h' to change the heat");
+                   System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door\nType 'h' to change the heat\n Type 't' to set the timer");
                   String userOption = scan.next();
-                  
+
                   if(userOption.equalsIgnoreCase("o")){
                       System.out.println("Do you want it on or off?");
                       String onOff = scan.next();
@@ -96,14 +97,14 @@ public class KitchenNamingClient
                              openCloseButton = true;
                          }
                          else if (openClose.equalsIgnoreCase("close")){
-                         openCloseButton = false;   
+                         openCloseButton = false;
                         }
                          else{
-                          openCloseButton = false;   
+                          openCloseButton = false;
                          }
                      result = addRef.openCloseDoor(openCloseButton, userDevice);
                      }
-                  
+
                   //heat change setting
                   if(userOption.equalsIgnoreCase("h")){
                          System.out.println("Please set the temperature required.");
@@ -116,14 +117,164 @@ public class KitchenNamingClient
                             }
                       result = addRef.changeHeat(userHeatAmount, userDevice);
                      }
-                  
+
+                  //set timer
+                  if(userOption.equalsIgnoreCase("t")){
+                         System.out.println("Please set the timer to the required amount of minutes.");
+                         String userTime = scan.next();
+                        double time = 0.0;
+                          try{
+                                time = Double.parseDouble(userTime);
+                            }catch (NumberFormatException ex) {
+                                System.out.println("You did not enter a number.");
+                            }
+                      result = addRef.setTimer(time, userDevice);
+                     }
+
 
                   //output to console
                   System.out.println("Result of method: " + result);
                 }
-                                  
-              
-            	
+
+                          else if(userDevice.equalsIgnoreCase("fridge")){
+                                   System.out.println("Type 'c' for open/close the door\nType 'h' to change the heat");
+                                  String userOption = scan.next();
+                                     if(userOption.equalsIgnoreCase("c")){
+                                         System.out.println("Do you want to open or close the door?");
+                                         String openClose = scan.next();
+                                         boolean openCloseButton;
+                                         if(openClose.equalsIgnoreCase("open")){
+                                             openCloseButton = true;
+                                         }
+                                         else if (openClose.equalsIgnoreCase("close")){
+                                         openCloseButton = false;
+                                        }
+                                         else{
+                                          openCloseButton = false;
+                                         }
+                                     result = addRef.openCloseDoor(openCloseButton, userDevice);
+                                     }
+
+                                  //heat change setting
+                                  if(userOption.equalsIgnoreCase("h")){
+                                         System.out.println("Please set the temperature required.");
+                                         String heatAmount = scan.next();
+                                        int userHeatAmount=0;
+                                          try{
+                                                userHeatAmount = Integer.parseInt(heatAmount);
+                                            }catch (NumberFormatException ex) {
+                                                System.out.println("You did not enter a number.");
+                                            }
+                                      result = addRef.changeHeat(userHeatAmount, userDevice);
+                                     }
+
+                                  //output to console
+                                  System.out.println("Result of method: " + result);
+                                }
+                                else if(userDevice.equalsIgnoreCase("coffeemaker")){
+                                         System.out.println("Type 'o' for on/off?\nType 'h' to change the heat\nType 't' to set the timer");
+                                        String userOption = scan.next();
+                                        if(userOption.equalsIgnoreCase("o")){
+                                            System.out.println("Do you want it on or off?");
+                                            String onOff = scan.next();
+                                            boolean onOffSwitch;
+                                            if(onOff.equals("on")){
+                                              onOffSwitch = true;
+                                            }
+                                            else if (onOff.equals("off")){
+                                              onOffSwitch = false;
+                                            }
+                                            else{
+                                                onOffSwitch = false;
+                                            }
+
+                                           result = addRef.turnOnOff(onOffSwitch, userDevice);
+                                        }
+
+                                        //heat change setting
+                                        if(userOption.equalsIgnoreCase("h")){
+                                               System.out.println("Please set the temperature required.");
+                                               String heatAmount = scan.next();
+                                              int userHeatAmount=0;
+                                                try{
+                                                      userHeatAmount = Integer.parseInt(heatAmount);
+                                                  }catch (NumberFormatException ex) {
+                                                      System.out.println("You did not enter a number.");
+                                                  }
+                                            result = addRef.changeHeat(userHeatAmount, userDevice);
+                                           }
+
+                                           //set timer
+                                           if(userOption.equalsIgnoreCase("t")){
+                                                  System.out.println("Please set the timer to the required amount of minutes.");
+                                                  String userTime = scan.next();
+                                                 double time = 0.0;
+                                                   try{
+                                                         time = Double.parseDouble(userTime);
+                                                     }catch (NumberFormatException ex) {
+                                                         System.out.println("You did not enter a number.");
+                                                     }
+                                               result = addRef.setTimer(time, userDevice);
+                                              }
+
+                                        //output to console
+                                        System.out.println("Result of method: " + result);
+                                      }
+
+                                                  else if(userDevice.equalsIgnoreCase("oven")){
+                                                         System.out.println("Type 'o' for on/off?\nType 'c' for open/close the door\nType 'h' to change the heat");
+                                                        String userOption = scan.next();
+
+                                                        if(userOption.equalsIgnoreCase("o")){
+                                                            System.out.println("Do you want it on or off?");
+                                                            String onOff = scan.next();
+                                                            boolean onOffSwitch;
+                                                            if(onOff.equals("on")){
+                                                              onOffSwitch = true;
+                                                            }
+                                                            else if (onOff.equals("off")){
+                                                              onOffSwitch = false;
+                                                            }
+                                                            else{
+                                                                onOffSwitch = false;
+                                                            }
+
+                                                           result = addRef.turnOnOff(onOffSwitch, userDevice);
+                                                        }
+                                                           if(userOption.equalsIgnoreCase("c")){
+                                                               System.out.println("Do you want to open or close the door?");
+                                                               String openClose = scan.next();
+                                                               boolean openCloseButton;
+                                                               if(openClose.equalsIgnoreCase("open")){
+                                                                   openCloseButton = true;
+                                                               }
+                                                               else if (openClose.equalsIgnoreCase("close")){
+                                                               openCloseButton = false;
+                                                              }
+                                                               else{
+                                                                openCloseButton = false;
+                                                               }
+                                                           result = addRef.openCloseDoor(openCloseButton, userDevice);
+                                                           }
+
+                                                        //heat change setting
+                                                        if(userOption.equalsIgnoreCase("h")){
+                                                               System.out.println("Please set the temperature required.");
+                                                               String heatAmount = scan.next();
+                                                              int userHeatAmount=0;
+                                                                try{
+                                                                      userHeatAmount = Integer.parseInt(heatAmount);
+                                                                  }catch (NumberFormatException ex) {
+                                                                      System.out.println("You did not enter a number.");
+                                                                  }
+                                                            result = addRef.changeHeat(userHeatAmount, userDevice);
+                                                           }
+                                                        //output to console
+                                                        System.out.println("Result of method: " + result);
+                                                      }
+
+
+
 
             } catch (Exception e) {
                 System.out.println("ERROR : " + e) ;
