@@ -67,6 +67,10 @@ public class KitchenNamingClient
               System.out.println("Please enter your device name");
               Scanner scan = new Scanner(System.in);
               String userDevice = scan.next();
+              if(!userDevice.equalsIgnoreCase("microwave") && !userDevice.equalsIgnoreCase("fridge") && !userDevice.equalsIgnoreCase("coffeemaker") && !userDevice.equalsIgnoreCase("oven")){
+                System.out.println("Please only select your connected devices: microwave, over, coffeemaker, fridge");
+              }
+              else{
                 String result = "";
 
               if(userDevice.equalsIgnoreCase("microwave")){
@@ -274,7 +278,7 @@ public class KitchenNamingClient
                                                       }
 
 
-
+                                                  }
 
             } catch (Exception e) {
                 System.out.println("ERROR : " + e) ;
