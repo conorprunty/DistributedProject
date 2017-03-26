@@ -14,6 +14,8 @@ public class KitchenNamingClient
     public static final String[] devices = { "Microwave", "Fridge", "Oven", "CoffeeMaker" };
     public static final String[] microwaveOptions = { "Open/Close", "On/Off", "Change Heat", "Set Timer" };
     public static final String[] fridgeOptions = { "Open/Close", "Set Temperature" };
+    public static final String[] ovenOptions = { "Open/Close","On/Off", "Set Temperature" };
+    public static final String[] coffeeMakerOptions = { "On/Off", "Set Timer" };
     public static final String[] openClose = { "Open", "Close" };
     public static final String[] onOff = { "On", "Off" };
     public static String result = "";
@@ -423,6 +425,116 @@ public class KitchenNamingClient
                     try{
                         userTempAmount = Integer.parseInt(tempChoice);
                         result = addRef.changeHeat(userTempAmount, chosenDevice);
+                        JOptionPane.showMessageDialog(null, result);
+                    }catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "You didn't enter a number");
+                    }  
+                }
+            }
+        
+        
+         if(chosenDevice.equals("Oven")){
+                String ovenChoice = (String) JOptionPane.showInputDialog(frame, 
+                "What would you like to do with the "+chosenDevice+"?",
+                "Oven",
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                ovenOptions, 
+                ovenOptions[0]);
+                
+                if(ovenChoice.equals("Open/Close")){
+                    String openCloseChoice = (String) JOptionPane.showInputDialog(frame, 
+                    "Would you like to open or close it?",
+                    "Open/Close",
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    openClose, 
+                    openClose[0]);
+                    
+                    boolean openCloseButton;
+                    if(openCloseChoice.equalsIgnoreCase("Open")){
+                        openCloseButton = true;
+                    }
+                    else if (openCloseChoice.equalsIgnoreCase("Close")){
+                        openCloseButton = false;
+                    }
+                    else{
+                        openCloseButton = false;
+                    }
+                    result = addRef.openCloseDoor(openCloseButton, chosenDevice);
+                    JOptionPane.showMessageDialog(null, result);
+                }
+             
+             if(ovenChoice.equals("On/Off")){
+                    String onOffChoice = (String) JOptionPane.showInputDialog(frame, 
+                    "Would you like it to be switched on or off?",
+                    "On/Off",
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    onOff, 
+                    onOff[0]);
+                    
+                    boolean onOffSwitch;
+                    if(onOff.equals("on")){
+                        onOffSwitch = true;
+                    }
+                    else if (onOff.equals("off")){
+                        onOffSwitch = false;
+                    }
+                    else{
+                        onOffSwitch = false;
+                    }
+                    result = addRef.turnOnOff(onOffSwitch, chosenDevice);
+                    JOptionPane.showMessageDialog(null, result);
+                }
+                if(ovenChoice.equals("Set Temperature")){
+                    String tempChoice = JOptionPane.showInputDialog(frame, "What temperature would you like to set it to?");
+                    try{
+                        userTempAmount = Integer.parseInt(tempChoice);
+                        result = addRef.changeHeat(userTempAmount, chosenDevice);
+                        JOptionPane.showMessageDialog(null, result);
+                    }catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "You didn't enter a number");
+                    }  
+                }
+            }
+        
+        if(chosenDevice.equals("CoffeeMaker")){
+                String coffeeMakerChoice = (String) JOptionPane.showInputDialog(frame, 
+                "What would you like to do with the "+chosenDevice+"?",
+                "CoffeeMaker",
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                coffeeMakerOptions, 
+                coffeeMakerOptions[0]);
+             
+             if(coffeeMakerChoice.equals("On/Off")){
+                    String onOffChoice = (String) JOptionPane.showInputDialog(frame, 
+                    "Would you like it to be switched on or off?",
+                    "On/Off",
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    onOff, 
+                    onOff[0]);
+                    
+                    boolean onOffSwitch;
+                    if(onOff.equals("on")){
+                        onOffSwitch = true;
+                    }
+                    else if (onOff.equals("off")){
+                        onOffSwitch = false;
+                    }
+                    else{
+                        onOffSwitch = false;
+                    }
+                    result = addRef.turnOnOff(onOffSwitch, chosenDevice);
+                    JOptionPane.showMessageDialog(null, result);
+                }
+                 if(coffeeMakerChoice.equals("Set Timer")){
+                    String timerChoice = JOptionPane.showInputDialog(frame, "What time would you like to set?");
+                    try{
+                        userTimerAmount = Integer.parseInt(timerChoice);
+                        result = addRef.setTimer(userTimerAmount, chosenDevice);
                         JOptionPane.showMessageDialog(null, result);
                     }catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "You didn't enter a number");
