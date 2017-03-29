@@ -30,74 +30,87 @@ public class KitchenNamingServer{
 
 			//begin to add Contexts and objects to the NamingService
 			//first add context 1 to root
-			nc[0] = new NameComponent("Context1", "Context");
+			nc[0] = new NameComponent("Microwave", "Context");
 			NamingContext AddCtx = rootCtx.bind_new_context(nc);
-			System.out.println("Context 'Context1' added to Name Space.");
+			System.out.println("Context 'Microwave' added to Name Space.");
 
 			//bind object 1 to context 1
-			nc[0] = new NameComponent("Object1", "Object");
+			nc[0] = new NameComponent("openCloseDoor", "Object");
 			AddCtx.rebind(nc, AddCtx);
 			//also bind object to servant class
 			AddCtx.rebind(nc, addRef);
-			System.out.println("Object 'Object1' added to Context1 Context.");
+			System.out.println("Object 'openCloseDoor' added to Microwave Context.");
 
-			//add Sub-Context 2 to Context 1
-			nc[0] = new NameComponent("Sub-Context2", "Context");
-			NamingContext Add3Ctx = AddCtx.bind_new_context(nc);
-			System.out.println("Context 'Sub-Context2' added to Context1 context.");
+			//bind object 2 to context 1
+			nc[0] = new NameComponent("setTimer", "Object");
+			AddCtx.rebind(nc, AddCtx);
+			//also bind object to servant class
+			AddCtx.rebind(nc, addRef);
+			System.out.println("Object 'setTimer' added to Microwave Context.");
 
-			//add object 1 to sub context 2
-			nc[0] = new NameComponent("Object1", "Object");
-			Add3Ctx.rebind(nc, Add3Ctx);
-			//also bind to servant class
-			Add3Ctx.rebind(nc, addRef);
-			System.out.println("Object 'Object1' added to Sub-Context2 Context.");
+			//bind object 3 to context 1
+			nc[0] = new NameComponent("changeHeat", "Object");
+			AddCtx.rebind(nc, AddCtx);
+			//also bind object to servant class
+			AddCtx.rebind(nc, addRef);
+			System.out.println("Object 'changeHeat' added to Microwave Context.");
+
+			//bind object 4 to context 1
+			nc[0] = new NameComponent("turnOnOff", "Object");
+			AddCtx.rebind(nc, AddCtx);
+			//also bind object to servant class
+			AddCtx.rebind(nc, addRef);
+			System.out.println("Object 'turnOnOff' added to Microwave Context.");
 
 			//add context 2 to root
-			nc[0] = new NameComponent("Context2", "Context");
+			nc[0] = new NameComponent("Fridge", "Context");
 			NamingContext Add2Ctx = rootCtx.bind_new_context(nc);
-			System.out.println("Context 'Context2' added to Name Space.");
+			System.out.println("Context 'Fridge' added to Name Space.");
 
-			//bind object 2 to context 2
-			nc[0] = new NameComponent("Object2", "Object");
+			//bind object 5 to context 2
+			nc[0] = new NameComponent("openCloseDoor", "Object");
 			Add2Ctx.rebind(nc, Add2Ctx);
-			//also add to servant class
-			Add2Ctx.rebind(nc, addRef);
-			System.out.println("Object 'Object2' added to Context2 Context.");
+			System.out.println("Object 'openCloseDoor' added to Fridge Context.");
 
-			//bind object 4 to context 2
-			nc[0] = new NameComponent("Object4", "Object");
+			//bind object 6 to context 2
+			nc[0] = new NameComponent("changeHeat", "Object");
 			Add2Ctx.rebind(nc, Add2Ctx);
-			//also add to servant class
-			Add2Ctx.rebind(nc, addRef);
-			System.out.println("Object 'Object4' added to Context2 Context.");
-
-			//add sub context 1 to context 2
-			nc[0] = new NameComponent("Sub-Context1", "Context");
-			NamingContext Add4Ctx = Add2Ctx.bind_new_context(nc);
-			System.out.println("Context 'Sub-Context1' added to Context2 context.");
-
-			//add object 3 to sub-context 1
-			nc[0] = new NameComponent("Object3", "Object");
-			Add4Ctx.rebind(nc, Add4Ctx);
-			//also add to servant class
-			Add4Ctx.rebind(nc, addRef);
-			System.out.println("Object 'Object3' added to Sub-Context1 Context.");
+			System.out.println("Object 'changeHeat' added to Fridge Context.");
 
 			//add context 3 to root
-			nc[0] = new NameComponent("Context3", "Context");
-			NamingContext Add5Ctx = rootCtx.bind_new_context(nc);
-			System.out.println("Context 'Context3' added to Name Space.");
+			nc[0] = new NameComponent("Oven", "Context");
+			NamingContext Add3Ctx = rootCtx.bind_new_context(nc);
+			System.out.println("Context 'Oven' added to Name Space.");
 
-			//bind object 5 to context 3
-			nc[0] = new NameComponent("Object5", "Object");
-			Add5Ctx.rebind(nc, Add5Ctx);
-			//also add to servant class
-			Add5Ctx.rebind(nc, addRef);
-			System.out.println("Object 'Object5' added to Context3 Context.");
+			//bind object 7 to context 3
+			nc[0] = new NameComponent("openCloseDoor", "Object");
+			Add3Ctx.rebind(nc, Add3Ctx);
+			System.out.println("Object 'openCloseDoor' added to Oven Context.");
 
+			//bind object 8 to context 3
+			nc[0] = new NameComponent("turnOnOff", "Object");
+			Add3Ctx.rebind(nc, Add3Ctx);
+			System.out.println("Object 'turnOnOff' added to Oven Context.");
 
+			//bind object 9 to context 3
+			nc[0] = new NameComponent("changeHeat", "Object");
+			Add3Ctx.rebind(nc, Add3Ctx);
+			System.out.println("Object 'changeHeat' added to Oven Context.");
 
+			//add context 4 to root
+			nc[0] = new NameComponent("CoffeeMaker", "Context");
+			NamingContext Add4Ctx = rootCtx.bind_new_context(nc);
+			System.out.println("Context 'CoffeeMaker' added to Name Space.");
+
+			//bind object 8 to context 4
+			nc[0] = new NameComponent("turnOnOff", "Object");
+			Add4Ctx.rebind(nc, Add4Ctx);
+			System.out.println("Object 'turnOnOff' added to CoffeeMaker Context.");
+
+			//bind object 9 to context 4
+			nc[0] = new NameComponent("setTimer", "Object");
+			Add4Ctx.rebind(nc, Add4Ctx);
+			System.out.println("Object 'setTimer' added to CoffeeMaker Context.");
 
       // wait for requests from clients
 			orb.run();
