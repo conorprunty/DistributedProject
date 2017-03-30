@@ -8,6 +8,10 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import com.google.gson.Gson;
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceEvent;
+import javax.jmdns.ServiceListener;
+import java.net.InetAddress;
 
 public class KitchenNamingClient {
 	public static NamingContextExt rootCtx;
@@ -22,6 +26,7 @@ public class KitchenNamingClient {
 	public static int userHeatAmount = 0;
 	public static int userTempAmount = 0;
 	public static int userTimerAmount = 0;
+	private String[] serviceNames = null;
 
 	public static void list(NamingContext n, String indent) {
 		try {
@@ -52,7 +57,40 @@ public class KitchenNamingClient {
 		}
 	}
 
+	// http://stackoverflow.com/questions/9276487/samples-with-jmdns/9286640#9286640
+	static class SampleListener implements ServiceListener {
+		@Override
+		public void serviceAdded(ServiceEvent event) {
+			System.out.println("Service added   : " + event.getName() + "." + event.getType());
+		}
+
+		@Override
+		public void serviceRemoved(ServiceEvent event) {
+			System.out.println("Service removed : " + event.getName() + "." + event.getType());
+		}
+
+		@Override
+		public void serviceResolved(ServiceEvent event) {
+			System.out.println("Service resolved: " + event.getInfo());
+		}
+	}
+
 	public static void main(String args[]) {
+
+		try {
+
+			final JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+			String type = "_http._tcp.local.";
+			if (args.length > 0) {
+				type = args[0];
+			}
+			jmdns.addServiceListener(type, new SampleListener());
+
+			jmdns.close();
+			System.out.println("Closing JmDNS");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		try {
 			NameComponent nc[] = new NameComponent[2];
