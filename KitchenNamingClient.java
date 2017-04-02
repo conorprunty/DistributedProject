@@ -126,6 +126,7 @@ public class KitchenNamingClient {
 
 		// instantiate Gson object
 		Gson gson = new Gson();
+		gson = new GsonBuilder().disableHtmlEscaping().create();
 		JFrame frame = new JFrame("Kitchen");
 		// get connected device
 		String chosenDevice = (String) JOptionPane.showInputDialog(frame, "What is your chosen device?",
@@ -174,7 +175,7 @@ public class KitchenNamingClient {
 						//json = gson.toJson(json);
 
 						result = addRef.turnOnOff(json);
-						JOptionPane.showMessageDialog(null, gson.toJson(result));
+						JOptionPane.showMessageDialog(null, result);
 					}
 
 
@@ -217,7 +218,7 @@ public class KitchenNamingClient {
 				// send request to server
 				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
 				result = addRef.openCloseDoor(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 			if (microwaveChoice.equals("On/Off")) {
 				String onOffChoice = (String) JOptionPane.showInputDialog(frame,
@@ -240,7 +241,7 @@ public class KitchenNamingClient {
 
 				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
 				result = addRef.turnOnOff(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 			if (microwaveChoice.equals("Change Heat")) {
 				String heatChoice = JOptionPane.showInputDialog(frame, "What heat would you like?");
@@ -262,7 +263,7 @@ public class KitchenNamingClient {
 					userTimerAmount = Integer.parseInt(timerChoice);
 					String json = "{'time': '" + userTimerAmount +"', 'device': '"+ chosenDevice +"'}";
 					result = addRef.setTimer(json);
-					JOptionPane.showMessageDialog(null, gson.toJson(result));
+					JOptionPane.showMessageDialog(null, result);
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
 				}
@@ -300,7 +301,7 @@ public class KitchenNamingClient {
 
 				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
 				result = addRef.turnOnOff(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 
 			if (fridgeChoice.equals("Open/Close")) {
@@ -324,7 +325,7 @@ public class KitchenNamingClient {
 				// send to server
 				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
 				result = addRef.openCloseDoor(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 			if (fridgeChoice.equals("Set Temperature")) {
 				String tempChoice = JOptionPane.showInputDialog(frame, "What temperature would you like to set it to?");
@@ -334,7 +335,7 @@ public class KitchenNamingClient {
 
 					String json = "{'temp': '" + userTempAmount +"', 'device': '"+ chosenDevice +"'}";
 					result = addRef.changeHeat(json);
-					JOptionPane.showMessageDialog(null, gson.toJson(result));
+					JOptionPane.showMessageDialog(null, result);
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
 				}
@@ -374,7 +375,7 @@ public class KitchenNamingClient {
 				// send to server
 				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
 				result = addRef.openCloseDoor(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 
 			if (ovenChoice.equals("On/Off")) {
@@ -399,7 +400,7 @@ public class KitchenNamingClient {
 				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
 
 				result = addRef.turnOnOff(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 			if (ovenChoice.equals("Set Temperature")) {
 				String tempChoice = JOptionPane.showInputDialog(frame, "What temperature would you like to set it to?");
@@ -409,7 +410,7 @@ public class KitchenNamingClient {
 
 					String json = "{'temp': '" + userTempAmount +"', 'device': '"+ chosenDevice +"'}";
 					result = addRef.changeHeat(json);
-					JOptionPane.showMessageDialog(null, gson.toJson(result));
+					JOptionPane.showMessageDialog(null, result);
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
 				}
@@ -449,7 +450,7 @@ public class KitchenNamingClient {
 				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
 
 				result = addRef.turnOnOff(json);
-				JOptionPane.showMessageDialog(null, gson.toJson(result));
+				JOptionPane.showMessageDialog(null, result);
 			}
 			if (coffeeMakerChoice.equals("Set Timer")) {
 				String timerChoice = JOptionPane.showInputDialog(frame, "What time would you like to set?");
@@ -459,7 +460,7 @@ public class KitchenNamingClient {
 
 					String json = "{'time': '" + userTimerAmount +"', 'device': '"+ chosenDevice +"'}";
 					result = addRef.setTimer(json);
-					JOptionPane.showMessageDialog(null, gson.toJson(result));
+					JOptionPane.showMessageDialog(null, result);
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
 				}

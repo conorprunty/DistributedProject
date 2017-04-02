@@ -11,6 +11,7 @@ class KitchenServant extends _KitchenImplBase
     Gson gson = new Gson();
 
 
+
     /*public String turnOnOff(boolean onOff, String appliance){
         if(onOff==true){ gson.toJson(returnOnOff = "on");
         }else returnOnOff = "off";
@@ -18,6 +19,7 @@ class KitchenServant extends _KitchenImplBase
     }*/
 
     public String turnOnOff(String json){
+      gson = new GsonBuilder().disableHtmlEscaping().create();
       JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
       boolean onOff  = jobj.get("onoff").getAsBoolean();
       String appliance = jobj.get("device").toString();
@@ -27,6 +29,7 @@ class KitchenServant extends _KitchenImplBase
     }
 
     public String changeHeat(String json){
+      gson = new GsonBuilder().disableHtmlEscaping().create();
       JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
       double tempAmount  = jobj.get("temp").getAsDouble();
       String appliance = jobj.get("device").toString();
@@ -34,6 +37,7 @@ class KitchenServant extends _KitchenImplBase
     }
 
     public String openCloseDoor(String json){
+      gson = new GsonBuilder().disableHtmlEscaping().create();
       JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
       boolean openClose  = jobj.get("openclose").getAsBoolean();
       String appliance = jobj.get("device").toString();
@@ -47,6 +51,7 @@ class KitchenServant extends _KitchenImplBase
     }
 
     public String setTimer(String json){
+      gson = new GsonBuilder().disableHtmlEscaping().create();
       JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
       double userTime  = jobj.get("time").getAsDouble();
       String appliance = jobj.get("device").toString();
