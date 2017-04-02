@@ -7,7 +7,7 @@ import org.omg.CosNaming.NamingContextPackage.*;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.*;
-import com.google.gson.Gson;
+import com.google.gson.*;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
@@ -15,9 +15,11 @@ import java.net.InetAddress;
 
 public class KitchenNamingClient {
 	public static NamingContextExt rootCtx;
-	public static final String[] devices = { "Microwave", "Fridge", "Oven", "CoffeeMaker" };
+	public static final String[] devices = { "Microwave", "Fridge", "Oven", "CoffeeMaker", "All Devices" };
+	public static final String[] devices2 = { "Microwave", "Fridge", "Oven", "CoffeeMaker" };
 	public static final String[] microwaveOptions = { "Open/Close", "On/Off", "Change Heat", "Set Timer" };
-	public static final String[] fridgeOptions = { "Open/Close", "Set Temperature" };
+	public static final String[] allDevices ={"On/Off"};
+	public static final String[] fridgeOptions = { "Open/Close", "Set Temperature", "On/Off" };
 	public static final String[] ovenOptions = { "Open/Close", "On/Off", "Set Temperature" };
 	public static final String[] coffeeMakerOptions = { "On/Off", "Set Timer" };
 	public static final String[] openClose = { "Open", "Close" };
@@ -133,6 +135,56 @@ public class KitchenNamingClient {
 			System.exit(0);
 		}
 
+		//convert string array to string
+		StringBuilder builder = new StringBuilder();
+			for(String s : devices2) {
+			    builder.append(s + " ");
+			}
+			String dev = builder.toString();
+
+
+		//for jmDNS - multicast to all devices
+		if (chosenDevice.equals("All Devices")) {
+			String choice = (String) JOptionPane.showInputDialog(frame,
+					"What would you like to do with " + chosenDevice + "?", "Microwave",
+					JOptionPane.QUESTION_MESSAGE, null, allDevices, allDevices[0]);
+
+					if (choice.equals("On/Off")) {
+						String onOffChoice = (String) JOptionPane.showInputDialog(frame,
+								"Would you like it to be switched on or off?", "On/Off", JOptionPane.QUESTION_MESSAGE, null,
+								onOff, onOff[0]);
+
+						if (onOffChoice == null) {
+							JOptionPane.showMessageDialog(null, "How dare you hit cancel, back to the start you go!");
+							userOpts(addRef);
+						}
+
+						boolean onOffSwitch;
+						if (onOffChoice.equalsIgnoreCase("on")) {
+							onOffSwitch = true;
+						} else if (onOffChoice.equalsIgnoreCase("off")) {
+							onOffSwitch = false;
+						} else {
+							onOffSwitch = false;
+						}
+
+						//convert to json
+					  String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ dev +"'}";
+						System.out.println(json);
+						//json = gson.toJson(json);
+
+						result = addRef.turnOnOff(json);
+						JOptionPane.showMessageDialog(null, gson.toJson(result));
+					}
+
+
+					if (choice == null) {
+						JOptionPane.showMessageDialog(null, "You did not choose an option");
+						userOpts(addRef);
+					}
+				}
+
+
 		// if microwave
 		if (chosenDevice.equals("Microwave")) {
 			String microwaveChoice = (String) JOptionPane.showInputDialog(frame,
@@ -163,7 +215,8 @@ public class KitchenNamingClient {
 					openCloseButton = false;
 				}
 				// send request to server
-				result = addRef.openCloseDoor(openCloseButton, chosenDevice);
+				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
+				result = addRef.openCloseDoor(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 			if (microwaveChoice.equals("On/Off")) {
@@ -184,7 +237,9 @@ public class KitchenNamingClient {
 				} else {
 					onOffSwitch = false;
 				}
-				result = addRef.turnOnOff(onOffSwitch, chosenDevice);
+
+				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
+				result = addRef.turnOnOff(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 			if (microwaveChoice.equals("Change Heat")) {
@@ -192,7 +247,9 @@ public class KitchenNamingClient {
 				// error handling
 				try {
 					userHeatAmount = Integer.parseInt(heatChoice);
-					result = addRef.changeHeat(userHeatAmount, chosenDevice);
+
+					String json = "{'temp': '" + userHeatAmount +"', 'device': '"+ chosenDevice +"'}";
+					result = addRef.changeHeat(json);
 					JOptionPane.showMessageDialog(null, result);
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
@@ -203,7 +260,8 @@ public class KitchenNamingClient {
 				// error handling
 				try {
 					userTimerAmount = Integer.parseInt(timerChoice);
-					result = addRef.setTimer(userTimerAmount, chosenDevice);
+					String json = "{'time': '" + userTimerAmount +"', 'device': '"+ chosenDevice +"'}";
+					result = addRef.setTimer(json);
 					JOptionPane.showMessageDialog(null, gson.toJson(result));
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
@@ -219,6 +277,30 @@ public class KitchenNamingClient {
 			if (fridgeChoice == null) {
 				JOptionPane.showMessageDialog(null, "You did not choose an option");
 				userOpts(addRef);
+			}
+
+			if (fridgeChoice.equals("On/Off")) {
+				String onOffChoice = (String) JOptionPane.showInputDialog(frame,
+						"Would you like it to be switched on or off?", "On/Off", JOptionPane.QUESTION_MESSAGE, null,
+						onOff, onOff[0]);
+
+				if (onOffChoice == null) {
+					JOptionPane.showMessageDialog(null, "How dare you hit cancel, back to the start you go!");
+					userOpts(addRef);
+				}
+
+				boolean onOffSwitch;
+				if (onOffChoice.equalsIgnoreCase("on")) {
+					onOffSwitch = true;
+				} else if (onOffChoice.equalsIgnoreCase("off")) {
+					onOffSwitch = false;
+				} else {
+					onOffSwitch = false;
+				}
+
+				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
+				result = addRef.turnOnOff(json);
+				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 
 			if (fridgeChoice.equals("Open/Close")) {
@@ -240,7 +322,8 @@ public class KitchenNamingClient {
 					openCloseButton = false;
 				}
 				// send to server
-				result = addRef.openCloseDoor(openCloseButton, chosenDevice);
+				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
+				result = addRef.openCloseDoor(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 			if (fridgeChoice.equals("Set Temperature")) {
@@ -248,7 +331,9 @@ public class KitchenNamingClient {
 				// handle errors
 				try {
 					userTempAmount = Integer.parseInt(tempChoice);
-					result = addRef.changeHeat(userTempAmount, chosenDevice);
+
+					String json = "{'temp': '" + userTempAmount +"', 'device': '"+ chosenDevice +"'}";
+					result = addRef.changeHeat(json);
 					JOptionPane.showMessageDialog(null, gson.toJson(result));
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
@@ -287,7 +372,8 @@ public class KitchenNamingClient {
 				}
 
 				// send to server
-				result = addRef.openCloseDoor(openCloseButton, chosenDevice);
+				String json = "{'openclose': '" + openCloseButton +"', 'device': '"+ chosenDevice +"'}";
+				result = addRef.openCloseDoor(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 
@@ -309,7 +395,10 @@ public class KitchenNamingClient {
 				} else {
 					onOffSwitch = false;
 				}
-				result = addRef.turnOnOff(onOffSwitch, chosenDevice);
+
+				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
+
+				result = addRef.turnOnOff(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 			if (ovenChoice.equals("Set Temperature")) {
@@ -317,7 +406,9 @@ public class KitchenNamingClient {
 				// error handling
 				try {
 					userTempAmount = Integer.parseInt(tempChoice);
-					result = addRef.changeHeat(userTempAmount, chosenDevice);
+
+					String json = "{'temp': '" + userTempAmount +"', 'device': '"+ chosenDevice +"'}";
+					result = addRef.changeHeat(json);
 					JOptionPane.showMessageDialog(null, gson.toJson(result));
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");
@@ -355,7 +446,9 @@ public class KitchenNamingClient {
 				}
 
 				// send to server, get response
-				result = addRef.turnOnOff(onOffSwitch, chosenDevice);
+				String json = "{'onoff': '" + onOffSwitch +"', 'device': '"+ chosenDevice +"'}";
+
+				result = addRef.turnOnOff(json);
 				JOptionPane.showMessageDialog(null, gson.toJson(result));
 			}
 			if (coffeeMakerChoice.equals("Set Timer")) {
@@ -363,7 +456,9 @@ public class KitchenNamingClient {
 				// error handling
 				try {
 					userTimerAmount = Integer.parseInt(timerChoice);
-					result = addRef.setTimer(userTimerAmount, chosenDevice);
+
+					String json = "{'time': '" + userTimerAmount +"', 'device': '"+ chosenDevice +"'}";
+					result = addRef.setTimer(json);
 					JOptionPane.showMessageDialog(null, gson.toJson(result));
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "You didn't enter a number");

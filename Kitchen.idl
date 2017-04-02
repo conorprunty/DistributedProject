@@ -2,10 +2,10 @@ module KitchenNaming
 {
   interface Kitchen
   {
-    string turnOnOff(in boolean onOff, in string appliance);
-    string changeHeat(in double tempAmount, in string appliance);
-    string openCloseDoor(in boolean openClose, in string appliance);
-    string setTimer(in double time, in string appliance);
+    string turnOnOff(in string json);
+    string changeHeat(in string json);
+    string openCloseDoor(in string json);
+    string setTimer(in string json);
     string temperature();
   };
 };

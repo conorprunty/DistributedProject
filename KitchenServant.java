@@ -1,5 +1,5 @@
 import KitchenNaming.*;
-import com.google.gson.Gson;
+import com.google.gson.*;
 
 class KitchenServant extends _KitchenImplBase
 {
@@ -11,17 +11,32 @@ class KitchenServant extends _KitchenImplBase
     Gson gson = new Gson();
 
 
-    public String turnOnOff(boolean onOff, String appliance){
+    /*public String turnOnOff(boolean onOff, String appliance){
+        if(onOff==true){ gson.toJson(returnOnOff = "on");
+        }else returnOnOff = "off";
+        return gson.toJson("The "+appliance+" is " + returnOnOff);
+    }*/
+
+    public String turnOnOff(String json){
+      JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+      boolean onOff  = jobj.get("onoff").getAsBoolean();
+      String appliance = jobj.get("device").toString();
         if(onOff==true){ gson.toJson(returnOnOff = "on");
         }else returnOnOff = "off";
         return gson.toJson("The "+appliance+" is " + returnOnOff);
     }
 
-    public String changeHeat(double tempAmount, String appliance){
+    public String changeHeat(String json){
+      JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+      double tempAmount  = jobj.get("temp").getAsDouble();
+      String appliance = jobj.get("device").toString();
         return gson.toJson("The "+appliance+"'s temperature is set to "+tempAmount);
     }
 
-    public String openCloseDoor(boolean openClose, String appliance){
+    public String openCloseDoor(String json){
+      JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+      boolean openClose  = jobj.get("openclose").getAsBoolean();
+      String appliance = jobj.get("device").toString();
         if(openClose==true){ gson.toJson(returnOpenClose = "open");
         }else returnOpenClose = "closed";
         return gson.toJson("The door of the "+appliance+ " is " + returnOpenClose);
@@ -31,7 +46,10 @@ class KitchenServant extends _KitchenImplBase
         return "";
     }
 
-    public String setTimer(double userTime, String appliance){
+    public String setTimer(String json){
+      JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
+      double userTime  = jobj.get("time").getAsDouble();
+      String appliance = jobj.get("device").toString();
         return gson.toJson("The "+appliance+"'s timer is set to "+userTime + " minutes");
     }
 }
