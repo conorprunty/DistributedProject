@@ -10,14 +10,6 @@ class KitchenServant extends _KitchenImplBase
     Double tempAmount;
     Gson gson = new Gson();
 
-
-
-    /*public String turnOnOff(boolean onOff, String appliance){
-        if(onOff==true){ gson.toJson(returnOnOff = "on");
-        }else returnOnOff = "off";
-        return gson.toJson("The "+appliance+" is " + returnOnOff);
-    }*/
-
     public String turnOnOff(String json){
       gson = new GsonBuilder().disableHtmlEscaping().create();
       JsonObject jobj = new Gson().fromJson(json, JsonObject.class);
@@ -44,10 +36,6 @@ class KitchenServant extends _KitchenImplBase
         if(openClose==true){ gson.toJson(returnOpenClose = "open");
         }else returnOpenClose = "closed";
         return gson.toJson("The door of the "+appliance+ " is " + returnOpenClose);
-    }
-
-    public String temperature(){
-        return "";
     }
 
     public String setTimer(String json){

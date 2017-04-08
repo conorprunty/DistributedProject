@@ -6,6 +6,5 @@ module KitchenNaming
     string changeHeat(in string json);
     string openCloseDoor(in string json);
     string setTimer(in string json);
-    string temperature();
   };
 };

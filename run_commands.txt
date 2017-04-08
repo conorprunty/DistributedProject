@@ -1,0 +1,30 @@
+Note: commands are for a mac machine, may differ slightly for Windows etc
+
+//change directory to the project location
+cd <project_location>
+
+//adding the two jar files used to the classpath of the machine - note this will only add for this session
+export CLASSPATH=$CLASSPATH:/<project_location>/gson-2.3.1.jar:/<project_location>/jmdns-3.4.1.jar
+
+//compile the classes
+//we have included the compiled classes but this can be ran anyway if necessary
+javac KitchenNamingClient.java
+javac KitchenServant.java
+javac KitchenNamingServer.java
+
+//set the initial port
+tnameserv -ORBInitialPort 1050 &
+
+//run the server
+java KitchenNamingServer -ORBInitialPort 1050
+
+//open a new terminal window
+//change the directory (if not in the right location)
+cd <project_location>
+
+//need to add the jars again to the classpath
+export CLASSPATH=$CLASSPATH:/<project_location>/gson-2.3.1.jar:/<project_location>/jmdns-3.4.1.jar
+
+//start the client
+java KitchenNamingClient -ORBInitialPort 1050
+
